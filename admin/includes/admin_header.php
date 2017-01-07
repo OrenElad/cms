@@ -1,42 +1,9 @@
+<?php include "../includes/db.php" ?>
+
 <?php ob_start(); ?>
-<?php include "../includes/db.php"; ?>
-<?php include "functions.php"; ?>
-
-
-
-<?php session_start(); ?>
-
-
-<?php 
-
-
-
-
-if(isset($_SESSION['user_role'])) {
-
-
-
-} else {
-
-header("location: ../index.php");
-
-
-}
-
-
-
-
- ?>
-
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
-
 
 <head>
 
@@ -64,22 +31,6 @@ header("location: ../index.php");
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
- <link href="css/styles.css" rel="stylesheet">
-
- 
- <script type="text/javascript" src="https://www.google.com/jsapi"></script>
- 
- <script src="http://tinymce.cachefly.net/4.1/tinymce.min.js"></script>
-
-
-<script src="js/jquery.js"></script>
- 
-
-
- 
 </head>
 
 <body>
-
-
-
