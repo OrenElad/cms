@@ -11,8 +11,8 @@
             <th>Tags</th>
             <th>Comment Counts</th>
             <th>Status</th>
-            <th>Edit Post</th>
-            <th>Remove</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
