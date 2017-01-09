@@ -12,9 +12,9 @@
             <div class="col-md-8">
                 
                 <?php
-                        $query = "SELECT * FROM posts";
+                        $query = "SELECT * FROM posts  ";
                         $select_all_posts_query = mysqli_query($connection, $query);
-                    
+                        $show_posts = false;
                         while($row = mysqli_fetch_assoc($select_all_posts_query)) {
                             $post_id= $row['post_id'];
                             $post_title = $row['post_title'];
@@ -22,8 +22,11 @@
                             $post_date = $row['post_date'];
                             $post_image = $row['post_image'];
                             $post_content = substr($row['post_content'], 0, 100);
+                            $post_status = $row['post_status'];
                             
-                            ?>
+                            if($post_status == 'published'){
+                                $show_posts = true;
+                               ?>
                                 <h1 class="page-header">
                                     Page Heading
                                     <small>Secondary Text</small>
@@ -42,8 +45,9 @@
                                 <hr>
                                 <p><?php echo $post_content?></p>
                                 <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-                                <hr>
-            <?php }  ?>
+                           <?php } ?>
+                            
+            <?php }   if(!$show_posts){ echo "<h1 class='text-center'>No posts to show</h1>"; }?>
                 
 
 
