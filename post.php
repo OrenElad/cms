@@ -45,7 +45,7 @@
                                 <img class="img-responsive" src="images/<?php echo $post_image?>" alt="">
                                 <hr>
                                 <p><?php echo $post_content?></p>
-                                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                                <a class="btn btn-primary" href="index.php"><span class="glyphicon glyphicon-chevron-left"></span> Home</a>
                                 <hr>
             <?php }  ?>
                 
@@ -56,26 +56,32 @@
                 
                 <?php 
                 if(isset($_POST['create_comment'])){
+                    
                     $post_id = $_GET['p_id'];
                     $comment_author = $_POST['comment_author'];
                     $comment_email = $_POST['comment_email'];
                     $comment_content = $_POST['comment_content'];
+                    if(!empty($comment_author) && !empty($comment_email) && !empty($comment_content)){
+                        
+                        $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
+                        $query .= "VALUES ($post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'unapproved', now()) ";
+                        $create_comment_query = mysqli_query($connection, $query);
+                        if(!$create_comment_query){
+                            die('Query failed ' . mysqli_error($connection));
+                        }
+
+                        $update_query = "UPDATE posts SET post_comment_count = $post_comment_count +1 ";
+                        $update_query .= "WHERE post_id = $post_id ";
+                        $comment_count_query = mysqli_query($connection, $update_query);
+                        if(!$comment_count_query){
+                            die('Query failed ' . mysqli_error($connection));
+                        }
+                    }else {
+                        echo "<script>alert('Fileds cannot be empty')</script>";
+                    }
                     
 
-                    $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
-                    $query .= "VALUES ($post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'unapproved', now()) ";
                     
-                    $create_comment_query = mysqli_query($connection, $query);
-                    if(!$create_comment_query){
-                        die('Query failed ' . mysqli_error($connection));
-                    }
-                    
-                    $update_query = "UPDATE posts SET post_comment_count = $post_comment_count +1 ";
-                    $update_query .= "WHERE post_id = $post_id ";
-                    $comment_count_query = mysqli_query($connection, $update_query);
-                    if(!$comment_count_query){
-                        die('Query failed ' . mysqli_error($connection));
-                    }
                     
 
                 }

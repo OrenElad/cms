@@ -28,9 +28,9 @@
             $_SESSION['user_firstname'] = $db_user_firstname;
             $_SESSION['user_lastname'] = $db_user_lastname;
             $_SESSION['user_role'] = $db_user_role;
-            if($_SESSION['user_role'] == 'admin'){
+//            if($_SESSION['user_role'] == 'admin'){
                 header("Location: ../admin");
-            } 
+//            } 
         }else {
             header("Location: ../index.php");
         }
