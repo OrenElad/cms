@@ -1,7 +1,5 @@
-<?php include "./includes/db.php"; ?>    
-<?php include "./includes/header.php"; ?>
-<?php include "./admin/functions.php"; ?>
-
+<?php include "./includes/db.php"?>    
+<?php include "./includes/header.php"?>
 
     <!-- Navigation -->
     <?php include "./includes/navigation.php"?>
@@ -17,12 +15,10 @@
     
                         if(isset($_GET['p_id'])){
                             $post_id = $_GET['p_id'];
-                        
-                        $view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id =  $post_id";
-                        $send_query = mysqli_query($connection, $view_query);
-                        confirm($send_query);
+                            $the_post_author = $_GET['author'];
 
-                        $query = "SELECT * FROM posts WHERE post_id = {$post_id} ";
+                        }
+                        $query = "SELECT * FROM posts WHERE post_author = '{$the_post_author}' ";
                         $select_all_posts_query = mysqli_query($connection, $query);
                     
                         while($row = mysqli_fetch_assoc($select_all_posts_query)) {
@@ -41,10 +37,10 @@
 
                                 <!-- First Blog Post -->
                                 <h2>
-                                    <a href="#"><?php echo $post_title?></a>
+                                    <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title?></a>
                                 </h2>
                                 <p class="lead">
-                                    by <a href="index.php"><?php echo $post_author?></a>
+                                    All posts by <?php echo $post_author?>
                                 </p>
                                 <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date?></p>
                                 <hr>
@@ -53,10 +49,7 @@
                                 <p><?php echo $post_content?></p>
                                 <a class="btn btn-primary" href="index.php"><span class="glyphicon glyphicon-chevron-left"></span> Home</a>
                                 <hr>
-            <?php } 
-            }else {
-                header("Location: index.php");
-                } ?>
+            <?php }  ?>
                 
                 
                 <!-- Blog Comments -->
@@ -95,24 +88,7 @@
 
                 }
                 ?>
-                <div class="well">
-                    <h4>Leave a Comment:</h4>
-                    <form action="" method="post" role="form">
-                        <div class="form-group">
-                            <label for="Author">Author</label>
-                            <input class="form-control" type="text" name="comment_author">
-                        </div>
-                        <div class="form-group">
-                            <label for="Email">Email</label>
-                            <input class="form-control" type="email" name="comment_email">
-                        </div>
-                        <div class="form-group">
-                            <label for="Comment">Your Comment</label>
-                            <textarea name="comment_content" class="form-control" rows="3"></textarea>
-                        </div>
-                        <button type="submit" name="create_comment" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
+                
 
                 <hr>
 
