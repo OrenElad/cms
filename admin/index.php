@@ -2,7 +2,7 @@
 <?php include "./includes/admin_header.php" ?>
     <div id="wrapper">
 
-        <?php if($connection) echo "You're connected"?>
+        
         <!-- Navigation -->
         <?php include "./includes/admin_navigation.php" ?>
         <div id="page-wrapper">

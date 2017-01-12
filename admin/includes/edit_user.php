@@ -18,23 +18,24 @@
         }
     }
     if(isset($_POST['edit_user'])){
-        $user_firstname = $_POST['user_firstname'];
-        $user_lastname = $_POST['user_lastname'];
-        $user_role = $_POST['user_role'];
+        $user_firstname = escape($_POST['user_firstname']);
+        $user_lastname = escape($_POST['user_lastname']);
+        $user_role = escape($_POST['user_role']);
 //        $post_image = $_FILES['image']['name'];
 //        $post_image_temp = $_FILES['image']['tmp_name'];
-        $user_name = $_POST['user_name'];
-        $user_email = $_POST['user_email'];
-        $user_password = $_POST['user_password'];
-        
+        $user_name = escape($_POST['user_name']);
+        $user_email = escape($_POST['user_email']);
+        $user_password = escape($_POST['user_password']);
+        $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12)); 
+
 //        move_uploaded_file($post_image_temp, "../images/$post_image");
         
-            $query = "SELECT randSalt FROM users";
-            $select_randsalt_query = mysqli_query($connection, $query); 
-            confirm($select_randsalt_query);
-            $row = mysqli_fetch_assoc($select_randsalt_query);
-            $salt = $row['randSalt'];
-            $hashed_password = crypt($user_password, $salt);
+            // $query = "SELECT randSalt FROM users";
+            // $select_randsalt_query = mysqli_query($connection, $query); 
+            // confirm($select_randsalt_query);
+            // $row = mysqli_fetch_assoc($select_randsalt_query);
+            // $salt = $row['randSalt'];
+            // $hashed_password = crypt($user_password, $salt);
         
         
             $query = "UPDATE users SET ";

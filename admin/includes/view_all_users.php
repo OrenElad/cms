@@ -20,12 +20,12 @@
          $query = "SELECT * FROM users ";
         $select_users = mysqli_query($connection, $query);     
         while($row = mysqli_fetch_assoc($select_users)) {
-            $user_id = $row['user_id'];
-            $user_name = $row['user_name'];
-            $user_firstname = $row['user_firstname'];
-            $user_lastname = $row['user_lastname'];
-            $user_email = $row['user_email'];
-            $user_role = $row['user_role'];
+            $user_id = escape($row['user_id']);
+            $user_name = escape($row['user_name']);
+            $user_firstname = escape($row['user_firstname']);
+            $user_lastname = escape($row['user_lastname']);
+            $user_email = escape($row['user_email']);
+            $user_role = escape($row['user_role']);
            
             echo "<tr>";
             echo "<td>{$user_id}</td>";
@@ -53,25 +53,30 @@
         }
         
         if(isset($_GET['delete'])){
-            $delete_user_id = $_GET['delete'];
-            $query = "DELETE FROM users WHERE user_id = {$delete_user_id} ";
-            $delete_query = mysqli_query($connection, $query);
-            header("Location: users.php");
+            if(isset($_SESSION['user_role'])){
+                if($_SESSION['user_role'] == 'admin') {
+                    $delete_user_id = $_GET['delete'];
+                    $query = "DELETE FROM users WHERE user_id = {$delete_user_id} ";
+                    $delete_query = mysqli_query($connection, $query);
+                    header("Location: users.php");
+
+                }
+            }
         }
         if(isset($_GET['change_to_admin'])){
-            $user_id_admin = $_GET['change_to_admin'];
+            $user_id_admin = escape($_GET['change_to_admin']);
             $query = "UPDATE users SET user_role = 'admin' WHERE user_id = {$user_id_admin}";
             $user_role_admin_query = mysqli_query($connection, $query);
             header("Location: users.php");
         }
         if(isset($_GET['change_to_sub'])){
-            $user_id_sub = $_GET['change_to_sub'];
+            $user_id_sub = escape($_GET['change_to_sub']);
             $query = "UPDATE users SET user_role = 'subscriber' WHERE user_id = {$user_id_sub}";
             $user_role_sub_query = mysqli_query($connection, $query);
             header("Location: users.php");
         }
         if(isset($_GET['edit'])){
-            $edit_user_id = $_GET['edit'];
+            $edit_user_id = escape($_GET['edit']);
             $query = "UPDATE users WHERE user_id = {$edit_user_id}";
             $unapprove_comment_query = mysqli_query($connection, $query);
             header("Location: users.php");
